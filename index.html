@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Diagnóstico de Maturidade em IA · SupplyIA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ── TOKENS DE MARCA ─────────────────────────────── */
+:root {
+  --dark:    #0D1117;
+  --dark2:   #161B22;
+  --dark3:   #21262D;
+  --amber:   #F59E0B;
+  --amber2:  #FCD34D;
+  --amber3:  #78350F;
+  --white:   #F9FAFB;
+  --muted:   #8B949E;
+  --muted2:  #6E7681;
+  --border:  #30363D;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--dark);
+  font-family: 'Inter', sans-serif;
+  color: var(--white);
+  min-height: 100vh;
+  /* Grid sutil de fundo */
+  background-image:
+    linear-gradient(rgba(245,158,11,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,158,11,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Linha âmbar no topo — marca registrada */
+body::before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--amber);
+  z-index: 100;
+}
+
+.wrap {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 48px 24px 72px;
+}
+
+/* ── TIPOGRAFIA ──────────────────────────────────── */
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ── ANIMAÇÕES ───────────────────────────────────── */
+@keyframes up   { from { opacity:0; transform:translateY(14px) } to { opacity:1; transform:translateY(0) } }
+@keyframes flow { 0%,100% { stroke-dashoffset:0 } 50% { stroke-dashoffset:-40 } }
+
+.a0 { animation: up .38s ease both; }
+.a1 { animation: up .38s .07s ease both; }
+.a2 { animation: up .38s .14s ease both; }
+.a3 { animation: up .38s .21s ease both; }
+.a4 { animation: up .38s .28s ease both; }
+.a5 { animation: up .38s .35s ease both; }
+
+/* ── LOGO ────────────────────────────────────────── */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+.logo svg { flex-shrink: 0; }
+.logo-word {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.logo-supply { color: var(--white); }
+.logo-ia     { color: var(--amber); }
+
+/* ── BADGE ───────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245,158,11,0.10);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 20px;
+  padding: 6px 14px;
+  margin-bottom: 22px;
+}
+.badge span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--amber);
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ── BOTÃO PRINCIPAL ─────────────────────────────── */
+.btn-primary {
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--amber);
+  color: var(--dark);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .15s;
+  letter-spacing: -0.01em;
+}
+.btn-primary:hover   { background: var(--amber2); }
+.btn-primary:disabled {
+  background: var(--dark3);
+  color: var(--muted2);
+  cursor: not-allowed;
+}
+
+/* ── BOTÃO VOLTAR ────────────────────────────────── */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--muted2);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 32px;
+  transition: color .15s;
+}
+.btn-back:hover { color: var(--muted); }
+
+/* ── INPUTS ──────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+.field label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted2);
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.field input {
+  padding: 14px 16px;
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.field input:focus {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(245,158,11,0.12);
+}
+.field input::placeholder { color: var(--muted2); }
+
+/* ── RESPOSTAS ───────────────────────────────────── */
+.ans {
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all .15s;
+  display: block;
+  margin-bottom: 10px;
+}
+.ans:hover { border-color: var(--muted2); color: var(--white); }
+.ans.sel {
+  background: rgba(245,158,11,0.08);
+  border-color: var(--amber);
+  color: var(--white);
+  font-weight: 500;
+}
+.ans-key {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  margin-right: 10px;
+  color: var(--muted2);
+}
+.ans.sel .ans-key { color: var(--amber); }
+
+/* ── BARRA DE PROGRESSO ──────────────────────────── */
+.prog-wrap {
+  margin-bottom: 36px;
+}
+.prog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.prog-bar {
+  height: 3px;
+  background: var(--dark3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.prog-fill {
+  height: 100%;
+  background: var(--amber);
+  border-radius: 2px;
+  transition: width .4s ease;
+}
+
+/* ── ÁREA DA PERGUNTA ────────────────────────────── */
+.area-tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  margin-bottom: 18px;
+}
+.area-tag span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ── CARDS RESULTADO ─────────────────────────────── */
+.card {
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.card2 {
+  background: rgba(245,158,11,0.04);
+  border: 1px solid rgba(245,158,11,0.15);
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.cta-card {
+  background: rgba(245,158,11,0.07);
+  border: 1px solid rgba(245,158,11,0.20);
+  border-radius: 10px;
+  padding: 24px;
+}
+.cta-btn {
+  display: block;
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--amber);
+  color: var(--dark);
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  margin-bottom: 10px;
+  transition: background .15s;
+  letter-spacing: -0.01em;
+}
+.cta-btn:hover { background: var(--amber2); }
+
+/* ── META STRIP ──────────────────────────────────── */
+.meta {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ── LEVEL LABELS ────────────────────────────────── */
+.level-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+/* ── GLOW hero ───────────────────────────────────── */
+.glow {
+  position: fixed;
+  top: -120px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(245,158,11,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrap" id="app" style="position:relative;z-index:1;"></div>
+
+<script>
+// ── PERGUNTAS ─────────────────────────────────────────────────────────
+const Q = [
+  { n:"01", area:"Rotina",
+    q:"De onde vêm os dados quando seu chefe pede um número agora?",
+    hint:"Pense na última sexta às 16h com uma solicitação urgente.",
+    a:["Vou garimpar em e-mail, sistema e planilha separada — e rezo para bater.",
+       "Tenho uma planilha mestre, mas ela chega com problema toda vez que preciso.",
+       "Tenho um modelo pronto. Atualizo os dados e exporto.",
+       "O relatório já está pronto quando o pedido chega."] },
+  { n:"02", area:"Tempo",
+    q:"Quantas horas por semana você gasta fazendo coisas que um robô deveria fazer?",
+    hint:"Conferir duplicata, formatar planilha, copiar dado de sistema pra e-mail…",
+    a:["Mais de 8 horas. É a maior parte do meu dia.",
+       "Entre 4 e 8 horas. Muito, mas já foi pior.",
+       "Entre 1 e 4 horas. Automatizei algumas coisas.",
+       "Menos de 1 hora. O repetitivo já tem solução."] },
+  { n:"03", area:"Dados",
+    q:"Quando você abre uma planilha de entregas ou estoque, qual é a primeira dor de cabeça?",
+    hint:"Aquela que aparece toda vez, sem exceção.",
+    a:["Nome errado, data torta, campo em branco. Limpeza antes de qualquer análise.",
+       "Os dados estão ok, mas tiro conclusões diferentes cada vez que processo.",
+       "Dados confiáveis, mas demoro para transformar isso em análise.",
+       "Dados limpos e análise rápida. O problema agora é o que fazer com o resultado."] },
+  { n:"04", area:"Frete",
+    q:"Você confere se a transportadora cobrou o valor certo?",
+    hint:"CT-e, tabela de frete, glosa, divergência de peso…",
+    a:["Não confiro. Confio no boleto que chega e pago.",
+       "Confiro quando dá tempo — e às vezes acho divergência.",
+       "Tenho planilha de conferência. Lento, mas funciona.",
+       "Tenho processo automatizado que sinaliza divergência antes de eu pedir."] },
+  { n:"05", area:"IA hoje",
+    q:"Com que frequência você usa IA no trabalho de verdade?",
+    hint:"ChatGPT, Claude, Copilot — em tarefas da operação, não pessoais.",
+    a:["Não uso. Nunca tentei, ou tentei uma vez e não vi resultado.",
+       "Uso às vezes, mas sem método. O resultado muda toda vez.",
+       "Uso com frequência. Tenho alguns prompts que funcionam.",
+       "Uso todo dia. Tenho processo estruturado e resultado que consigo medir."] },
+  { n:"06", area:"Prompt",
+    q:"A IA te deu uma resposta ruim. O que você faz?",
+    hint:"Esse é o termômetro real. Não existe resposta errada.",
+    a:["Desisto ou aceito o resultado mesmo ruim.",
+       "Tento de novo com palavras diferentes, mas no chute.",
+       "Ajusto a instrução com base no que faltou. Normalmente melhora.",
+       "Tenho estrutura de prompt que raramente falha. Sei exatamente o que ajustar."] },
+  { n:"07", area:"Análise",
+    q:"A última análise que você levou para reunião foi baseada em quê?",
+    hint:"OTIF, curva ABC, comparativo de fornecedor, ruptura de estoque…",
+    a:["Em número que eu lembrava ou alguém me passou. Análise formal não houve.",
+       "Em planilha que montei na pressa. Funcionou, mas sem muita confiança.",
+       "Em dados tratados com critério claro. Defendi sem problema.",
+       "Em análise acelerada por IA, com recomendação pronta para debater."] },
+  { n:"08", area:"Repetição",
+    q:"Tem alguma tarefa que você faz toda semana e já pensou 'devia ter uma forma mais rápida'?",
+    hint:"Qualquer coisa que você faz no piloto automático mas ainda consome tempo.",
+    a:["Sim, várias. Mas não sei por onde começar com IA.",
+       "Sim, pelo menos uma. Já tentei, mas não funcionou direito.",
+       "Sim, e já resolvi uma ou duas. Ainda tenho outras na fila.",
+       "Não. O repetitivo já tem solução."] },
+  { n:"09", area:"Carreira",
+    q:"Como você está em relação a dados e IA, comparado com quem trabalha com você?",
+    hint:"Seja honesto. É o que torna o diagnóstico útil.",
+    a:["Estou atrás. Sinto que os outros já sabem mais.",
+       "Estou no mesmo nível. Faço o básico que todo mundo faz.",
+       "Estou um passo à frente. Uso coisas que os outros ainda não usam.",
+       "Sou referência. As pessoas me procuram quando o assunto é esse."] },
+  { n:"10", area:"Próximo passo",
+    q:"O que você realmente quer com IA nos próximos 90 dias?",
+    hint:"Escolha o que está mais próximo do que você quer de verdade — não do que parece mais bonito.",
+    a:["Entender o básico: como funciona, onde usar, o que não é enganação.",
+       "Resolver uma dor específica da minha rotina — uma planilha, um relatório.",
+       "Ter método: prompts que funcionam, biblioteca pronta, resultado consistente.",
+       "Implantar IA no time ou na empresa. Quero liderar esse movimento."] }
+];
+
+const GUIA_URL = "COLE_URL_DO_GUIA";
+const SUB = "30 Dias de IA Aplicada ao Supply Chain · Guia + Método CADEIA";
+
+const LEVELS = [
+  { n:"N1", label:"Manual", range:[0,25], cor:"#F85149",
+    titulo:"Enquanto você lê isso, alguém da sua área já está usando IA.",
+    descricao:"Ele tem a mesma planilha bagunçada que você. O mesmo gestor pedindo OTIF na sexta às 16h. A diferença: ele sai em 40 minutos. Você fica até as 19h. Esse não é um problema de ferramenta. É um problema de método — e cada semana que passa sem resolver é mais uma semana perdendo terreno.",
+    prox:"O Guia começa na sua planilha real, não em exercício didático. Semana 1: relatório gerencial pronto com Claude Code. Semana 2: biblioteca de prompts que roda toda semana sem reescrever. Semana 3: curva ABC e análise de fornecedor em 15 minutos — o tipo de análise que coloca você na reunião de diretoria. Semana 4: roadmap dos próximos 90 dias da sua operação com IA, com critério de sucesso definido. Entregável concreto toda semana. Resultado que você mostra pro gestor na segunda-feira.",
+    cta:"Quero o Guia agora", sub:SUB, url:GUIA_URL },
+
+  { n:"N2", label:"Estruturando", range:[26,50], cor:"#F59E0B",
+    titulo:"Você já viu funcionar. O problema é que depende da sua memória.",
+    descricao:"Você testou, funcionou uma vez. Na semana seguinte, recomeçou do zero. Reformulou o prompt no chute, perdeu 30 minutos, aceitou um resultado mediano. Isso não é usar IA — é improvisar com IA. E improvisar não escala, não impressiona gestor e não coloca você à frente de ninguém.",
+    prox:"A Semana 2 do Guia resolve isso de vez: você monta sua biblioteca pessoal de prompts com o contexto da sua operação — OTIF, auditoria de frete, pendências de fornecedor, curva ABC. Prompts que qualquer pessoa da equipe consegue rodar. Na Semana 3 você faz análise de decisão pronta para apresentar — do tipo que separa quem relata número de quem recomenda ação. É essa segunda pessoa que vai para a reunião de diretoria.",
+    cta:"Quero o Guia agora", sub:SUB, url:GUIA_URL },
+
+  { n:"N3", label:"Conectado", range:[51,75], cor:"#58A6FF",
+    titulo:"Você usa IA. Seus colegas ainda não. Essa janela fecha.",
+    descricao:"Você está à frente agora. Mas vantagem sem processo documentado é vantagem temporária. Quando o colega ao lado aprender — e vai aprender — o que vai te separar não é saber usar. É ter construído o ativo que ele não tem: biblioteca organizada, roadmap estruturado, processo replicável. Quem chega primeiro com método vira referência. Quem chega depois vira seguidor.",
+    prox:"A Semana 2 do Guia transforma o que você já faz de cabeça em biblioteca com critério — o que entra, o que fica de fora, como organizar para escalar. A Semana 4 entrega o roadmap com horizontes de 30, 60 e 90 dias e a lógica de integração: quando o output da IA para de ser documento e vira input automático de outro processo. Isso é o que separa usuário de referência.",
+    cta:"Quero o Guia agora", sub:SUB, url:GUIA_URL },
+
+  { n:"N4", label:"Estratégico", range:[76,100], cor:"#3FB950",
+    titulo:"Você sabe usar. Agora precisa do número que prova.",
+    descricao:"Você é quem os outros consultam. Mas quando seu gestor perguntar — e vai perguntar — quanto isso gerou de resultado, você vai ter a resposta na cabeça ou no papel? Percepção sem número é opinião. Número sem metodologia é chute. O inventário de impacto da Semana 4 te dá o dado real: horas economizadas por semana, processos migrados, o que ainda está manual e por quê.",
+    prox:"Vem em parágrafo pronto para reunião — achado, implicação, ação. O formato que transforma dado em decisão e coloca você na conversa de diretoria, não só na sala de operações. Além disso, o roadmap de integração da Semana 4 mostra quando o output da IA para de ser arquivo e vira fluxo — o próximo nível que quase ninguém na sua área chegou.",
+    cta:"Quero o Guia agora", sub:SUB, url:GUIA_URL }
+];
+
+// ── ESTADO ────────────────────────────────────────────────────────────
+let state = { step:"intro", current:0, answers:{}, selected:null, nome:"", wpp:"" };
+
+function getScore() {
+  const v = Object.values(state.answers);
+  if (!v.length) return 0;
+  return Math.round((v.reduce((a,b) => a+b, 0) / (v.length * 3)) * 100);
+}
+function getLevel(s) { return LEVELS.find(l => s >= l.range[0] && s <= l.range[1]) || LEVELS[0]; }
+
+// ── LOGO SVG OFICIAL ──────────────────────────────────────────────────
+function logoHTML() {
+  return `<div class="logo a0">
+    <svg width="32" height="32" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 24 C18 18 24 14 32 14 L44 14 C52 14 56 18 56 24 C56 30 52 34 44 34 L28 34 C20 34 16 38 16 44 C16 50 20 56 28 56 L44 56"
+            stroke="#30363D" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <path d="M18 24 C18 18 24 14 32 14 L44 14 C52 14 56 18 56 24 C56 30 52 34 44 34 L28 34 C20 34 16 38 16 44 C16 50 20 56 28 56 L44 56"
+            stroke="#F59E0B" stroke-width="6" stroke-linecap="round" fill="none"
+            stroke-dasharray="120 200"
+            style="animation: flow 2s ease-in-out infinite;"/>
+      <circle cx="18" cy="24" r="5" fill="#F59E0B"/>
+      <circle cx="44" cy="56" r="5" fill="#F59E0B"/>
+      <circle cx="44" cy="34" r="3.5" fill="#FCD34D"/>
+    </svg>
+    <div class="logo-word">
+      <span class="logo-supply">Supply</span><span class="logo-ia">IA</span>
+    </div>
+  </div>`;
+}
+
+// ── MÁSCARA DE TELEFONE ───────────────────────────────────────────────
+// Formata enquanto digita: (XX) XXXXX-XXXX
+function maskPhone(raw) {
+  const digits = raw.replace(/\D/g, '').slice(0, 11);
+  if (digits.length === 0) return '';
+  if (digits.length <= 2)  return `(${digits}`;
+  if (digits.length <= 7)  return `(${digits.slice(0,2)}) ${digits.slice(2)}`;
+  if (digits.length <= 11) return `(${digits.slice(0,2)}) ${digits.slice(2,7)}-${digits.slice(7)}`;
+  return `(${digits.slice(0,2)}) ${digits.slice(2,7)}-${digits.slice(7,11)}`;
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────
+function render() {
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+  if      (state.step === 'intro')  app.appendChild(rIntro());
+  else if (state.step === 'lead')   app.appendChild(rLead());
+  else if (state.step === 'quiz')   app.appendChild(rQuiz());
+  else                              app.appendChild(rResult());
+}
+
+// ── TELA 1: INTRO ─────────────────────────────────────────────────────
+function rIntro() {
+  const d = document.createElement('div');
+  d.innerHTML = `
+    ${logoHTML()}
+    <div class="badge a1"><span>Diagnóstico Gratuito</span></div>
+    <h1 class="a2" style="font-size:clamp(26px,5vw,36px);font-weight:800;line-height:1.2;letter-spacing:-0.03em;margin-bottom:16px;">
+      Você está ficando<br>
+      <span style="color:var(--amber)">para trás em IA</span> —<br>
+      ou só parece que está?
+    </h1>
+    <p class="a3" style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:10px;">
+      10 perguntas sobre o seu dia a dia real em supply chain. Sem teoria, sem pergunta sobre "estratégia digital da empresa".
+    </p>
+    <p class="a3" style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:32px;">
+      No final: seu nível de maturidade em IA e o próximo passo certo pro <em>seu</em> caso — não uma resposta genérica.
+    </p>
+    <div class="meta a4">
+      <div class="meta-item">⏱ 3 minutos</div>
+      <div class="meta-item">📋 10 perguntas</div>
+      <div class="meta-item">🎯 Resultado personalizado</div>
+    </div>
+    <button class="btn-primary a5" id="sb">Começar diagnóstico →</button>
+    <p style="margin-top:14px;font-size:12px;color:var(--muted2);text-align:center;">
+      Criado por João · 20+ anos em WMS, TMS, PCP e Importação · Zona Franca de Manaus
+    </p>`;
+  d.querySelector('#sb').onclick = () => { state.step = 'lead'; render(); };
+  return d;
+}
+
+// ── TELA 2: LEAD (captura antes do quiz) ──────────────────────────────
+function rLead() {
+  const d = document.createElement('div');
+  d.innerHTML = `
+    ${logoHTML()}
+    <button class="btn-back a0" id="bk">← Voltar</button>
+    <p class="a1 mono" style="font-size:10px;color:var(--amber);font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Antes de começar</p>
+    <h2 class="a2" style="font-size:clamp(22px,4vw,28px);font-weight:800;letter-spacing:-0.02em;margin-bottom:12px;line-height:1.25;">
+      Onde mando<br>seu resultado?
+    </h2>
+    <p class="a3" style="font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.65;">
+      Seu diagnóstico vai chegar pelo WhatsApp com análise personalizada — não só um número solto.
+    </p>
+    <div class="a3">
+      <div class="field">
+        <label>Primeiro nome</label>
+        <input id="iN" type="text" placeholder="Como posso te chamar?" value="${state.nome}" autocomplete="given-name"/>
+      </div>
+      <div class="field">
+        <label>WhatsApp (com DDD)</label>
+        <input id="iW" type="tel" placeholder="(92) 99999-9999" value="${state.wpp}" autocomplete="tel" inputmode="numeric"/>
+      </div>
+      <p id="er" style="color:#F85149;font-size:13px;margin-bottom:12px;display:none;"></p>
+      <button class="btn-primary" id="su">Iniciar diagnóstico →</button>
+    </div>
+    <p style="margin-top:14px;font-size:12px;color:var(--muted2);text-align:center;">
+      Sem spam. Só seu diagnóstico e o próximo passo certo pra você.
+    </p>`;
+
+  d.querySelector('#bk').onclick = () => { state.step = 'intro'; render(); };
+
+  // Nome
+  d.querySelector('#iN').oninput = e => { state.nome = e.target.value; };
+
+  // WhatsApp com máscara
+  const wppInput = d.querySelector('#iW');
+  wppInput.oninput = e => {
+    const pos    = e.target.selectionStart;
+    const before = e.target.value.length;
+    const masked = maskPhone(e.target.value);
+    e.target.value = masked;
+    state.wpp = masked;
+    // Mantém cursor na posição certa após formatação
+    const diff = masked.length - before;
+    e.target.setSelectionRange(pos + diff, pos + diff);
+  };
+
+  d.querySelector('#su').onclick = () => {
+    const nome = d.querySelector('#iN').value.trim();
+    const wpp  = d.querySelector('#iW').value.trim();
+    if (!nome || wpp.replace(/\D/g,'').length < 10) {
+      const er = d.querySelector('#er');
+      er.textContent = !nome
+        ? 'Preencha seu nome para continuar.'
+        : 'WhatsApp inválido. Informe DDD + número (mínimo 10 dígitos).';
+      er.style.display = 'block';
+      return;
+    }
+    state.nome = nome;
+    state.wpp  = wpp;
+    state.step = 'quiz';
+    state.current = 0;
+    state.answers = {};
+    state.selected = null;
+    render();
+  };
+
+  setTimeout(() => { const el = d.querySelector('#iN'); if(el) el.focus(); }, 80);
+  return d;
+}
+
+// ── TELA 3: QUIZ ──────────────────────────────────────────────────────
+function rQuiz() {
+  const q    = Q[state.current];
+  const prog = Math.round(((state.current) / Q.length) * 100);
+  const d    = document.createElement('div');
+
+  d.innerHTML = `
+    <div class="prog-wrap a0">
+      <div class="prog-header">
+        <span class="mono" style="font-size:12px;color:var(--amber);font-weight:600;">SupplyIA</span>
+        <span class="mono" style="font-size:11px;color:var(--muted2);">${state.current + 1} de ${Q.length}</span>
+      </div>
+      <div class="prog-bar">
+        <div class="prog-fill" style="width:${prog}%"></div>
+      </div>
+    </div>
+
+    <button class="btn-back a0" id="bk">← Voltar</button>
+
+    <div class="area-tag a1">
+      <span>${q.n} · ${q.area}</span>
+    </div>
+
+    <h2 class="a2" style="font-size:clamp(18px,4vw,22px);font-weight:700;letter-spacing:-0.02em;line-height:1.35;margin-bottom:10px;">${q.q}</h2>
+    <p class="a3" style="font-size:13px;color:var(--muted2);margin-bottom:26px;line-height:1.55;">${q.hint}</p>
+
+    <div id="ans" class="a3"></div>
+
+    <button class="btn-primary a4" id="nx" style="margin-top:20px;" disabled>
+      ${state.current < Q.length - 1 ? 'Próxima →' : 'Ver resultado →'}
+    </button>`;
+
+  // Voltar
+  d.querySelector('#bk').onclick = () => {
+    if (state.current === 0) {
+      state.step = 'lead';
+    } else {
+      state.current--;
+      state.selected = state.answers[state.current] !== undefined ? state.answers[state.current] : null;
+    }
+    render();
+  };
+
+  // Respostas
+  const ac = d.querySelector('#ans');
+  const prevSel = state.answers[state.current];
+  q.a.forEach((txt, i) => {
+    const isSel = prevSel === i;
+    const b = document.createElement('button');
+    b.className = 'ans' + (isSel ? ' sel' : '');
+    b.innerHTML = `<span class="ans-key">${String.fromCharCode(65 + i)}</span>${txt}`;
+    b.onclick = () => {
+      state.selected = i;
+      d.querySelectorAll('.ans').forEach((x, j) => {
+        x.classList.toggle('sel', j === i);
+      });
+      d.querySelector('#nx').disabled = false;
+    };
+    ac.appendChild(b);
+    if (isSel) d.querySelector('#nx').disabled = false;
+  });
+
+  // Próxima
+  d.querySelector('#nx').onclick = () => {
+    const chosen = state.selected !== null ? state.selected : state.answers[state.current];
+    if (chosen === undefined) return;
+    state.answers[state.current] = chosen;
+    state.selected = null;
+    if (state.current < Q.length - 1) {
+      state.current++;
+      state.selected = state.answers[state.current] !== undefined ? state.answers[state.current] : null;
+      render();
+    } else {
+      // Envia silenciosamente
+      try {
+        fetch("COLE_URL_DO_APPS_SCRIPT", {
+          method:"POST", mode:"no-cors",
+          headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({ nome:state.nome, wpp:state.wpp, score:getScore(), nivel:getLevel(getScore()).n, respostas:state.answers, ts:new Date().toISOString() })
+        });
+      } catch(_) {}
+      state.step = 'result';
+      render();
+    }
+  };
+
+  return d;
+}
+
+// ── TELA 4: RESULTADO ─────────────────────────────────────────────────
+function rResult() {
+  const s     = getScore();
+  const lv    = getLevel(s);
+  const first = state.nome.split(' ')[0];
+  const d     = document.createElement('div');
+
+  d.innerHTML = `
+    ${logoHTML()}
+
+    <div class="card a1">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+        <div>
+          <p class="mono" style="font-size:10px;color:var(--muted2);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">
+            Resultado de ${first}
+          </p>
+          <p class="mono" style="font-size:56px;font-weight:700;color:${lv.cor};line-height:1;">${s}</p>
+          <p style="font-size:12px;color:var(--muted2);margin-top:4px;">pontos de 100</p>
+        </div>
+        <div style="padding:12px 18px;border-radius:8px;background:${lv.cor}18;border:1px solid ${lv.cor}40;text-align:center;">
+          <p class="mono" style="font-size:11px;color:${lv.cor};font-weight:600;letter-spacing:1.5px;">${lv.n}</p>
+          <p style="font-size:13px;color:${lv.cor};font-weight:700;margin-top:4px;">${lv.label}</p>
+        </div>
+      </div>
+      <div style="height:4px;background:var(--dark3);border-radius:2px;overflow:hidden;">
+        <div style="height:100%;width:${s}%;background:${lv.cor};border-radius:2px;transition:width 1s ease;"></div>
+      </div>
+      <div class="level-labels">
+        ${LEVELS.map(l => `<span class="mono" style="font-size:10px;letter-spacing:1px;color:${l.n===lv.n?lv.cor:'var(--muted2)'};">${l.n}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="card a2">
+      <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:12px;line-height:1.35;">${lv.titulo}</h2>
+      <p style="font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px;">${lv.descricao}</p>
+      <div style="border-top:1px solid var(--border);padding-top:18px;">
+        <p class="mono" style="font-size:10px;color:${lv.cor};font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">
+          O que fazer agora
+        </p>
+        <p style="font-size:14px;color:var(--muted);line-height:1.65;">${lv.prox}</p>
+      </div>
+    </div>
+
+    <div class="cta-card a3">
+      <a class="cta-btn" href="${lv.url}">${lv.cta} →</a>
+      <p class="mono" style="font-size:11px;color:var(--muted2);text-align:center;letter-spacing:0.5px;">${lv.sub}</p>
+    </div>
+
+    <p class="a4" style="margin-top:24px;font-size:12px;color:var(--muted2);text-align:center;line-height:1.7;">
+      João vai te chamar no WhatsApp em breve.<br>
+      <span style="color:var(--amber);font-weight:600;">supplyia.com.br</span>
+    </p>`;
+
+  return d;
+}
+
+render();
+</script>
+</body>
+</html>
