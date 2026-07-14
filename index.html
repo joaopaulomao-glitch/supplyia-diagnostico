@@ -303,6 +303,13 @@ body::before {
 }
 .cta-btn:hover { background: var(--amber2); }
 
+/* ── ITENS DA OFERTA ─────────────────────────────── */
+.offer-item {
+  display:flex; align-items:flex-start; gap:8px;
+  font-size:13px; color:var(--muted); margin-bottom:8px; line-height:1.5;
+}
+.offer-item::before { content:'✓'; color:#3FB950; font-weight:700; flex-shrink:0; }
+
 /* ── META STRIP ──────────────────────────────────── */
 .meta {
   display: flex;
@@ -529,7 +536,7 @@ function rIntro() {
       10 perguntas sobre o seu dia a dia real em supply chain. Sem teoria, sem pergunta sobre "estratégia digital da empresa".
     </p>
     <p class="a3" style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:20px;">
-      As perguntas medem onde você está em cada movimento do <strong style="color:var(--white)">método CADEIA</strong>, o mesmo que estrutura o Guia de 30 dias:
+      Cada pergunta mede um movimento do <strong style="color:var(--white)">método CADEIA</strong>, o mesmo que cruzou 7.098 lançamentos de frete em menos de uma hora e virou decisão de diretoria:
     </p>
     <div class="cadeia-strip a3">
       <div class="cadeia-cell"><div class="cl">C</div><div class="cw">Capturar</div></div>
@@ -540,7 +547,7 @@ function rIntro() {
       <div class="cadeia-cell"><div class="cl">A</div><div class="cw">Acompanhar</div></div>
     </div>
     <p class="a3" style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:32px;">
-      No final: seu score, seu nível de maturidade e o mapa dos seus seis elos, com o próximo passo certo pro <em>seu</em> caso.
+      No final: seu score, seu nível e o mapa dos seis elos. Você sai sabendo qual elo está te custando as tardes de sexta e o que fazer com ele já na próxima semana.
     </p>
     <div class="meta a4">
       <div class="meta-item">⏱ 3 minutos</div>
@@ -567,7 +574,7 @@ function rLead() {
       Onde mando<br>seu resultado?
     </h2>
     <p class="a3" style="font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.65;">
-      Seu diagnóstico vai chegar pelo WhatsApp com análise personalizada, não só um número solto.
+      Seu diagnóstico chega pelo WhatsApp com a análise do seu mapa CADEIA, não só um número solto.
     </p>
     <div class="a3">
       <div class="field">
@@ -783,9 +790,29 @@ function rResult() {
       </div>
     </div>
 
-    <div class="cta-card a3">
-      <a class="cta-btn" href="${lv.url}">${lv.cta} →</a>
-      <p class="mono" style="font-size:11px;color:var(--muted2);text-align:center;letter-spacing:0.5px;">${lv.sub}</p>
+    <div class="cta-card a3" style="border-color:var(--amber);padding:28px 24px;">
+      <p class="mono" style="font-size:10px;color:var(--amber);font-weight:600;letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:10px;">Acesso completo · Fundador</p>
+      <p style="font-size:19px;font-weight:800;letter-spacing:-0.02em;text-align:center;margin-bottom:8px;">30 Dias de IA Aplicada ao Supply Chain</p>
+      <p style="font-size:13px;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:20px;">Seu mapa mostrou onde a cadeia arrebenta: <strong style="color:var(--white)">${weak.nome}</strong>. O Guia ataca exatamente esse elo na <strong style="color:var(--amber)">${weak.sem}</strong>.</p>
+      <div style="margin-bottom:18px;">
+        <div class="offer-item">Guia completo: 4 semanas + método CADEIA</div>
+        <div class="offer-item">Bônus 1: Biblioteca de 45 prompts prontos</div>
+        <div class="offer-item">Bônus 2: Aplicação por área (Compras, Estoque, Transporte, Gestão)</div>
+        <div class="offer-item">Bônus 3: Planilha de Curva ABC pronta</div>
+        <div class="offer-item">Bônus 4: Matriz de comparativo de fornecedores</div>
+        <div class="offer-item">Acesso imediato + atualizações inclusas</div>
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:18px;text-align:center;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;">
+          <span class="mono" style="font-size:16px;color:var(--muted2);text-decoration:line-through;">R$297</span>
+          <span class="mono" style="font-size:34px;font-weight:700;color:var(--amber);">R$ 197</span>
+        </div>
+        <div style="display:inline-block;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:4px 14px;font-size:11px;color:var(--amber);font-weight:700;margin-bottom:8px;">PREÇO DE FUNDADOR</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">ou 3x de R$ 69,90 sem juros</p>
+        <a class="cta-btn" href="${lv.url}">Garantir minha vaga de fundador →</a>
+        <p style="font-size:12px;color:var(--muted2);margin-bottom:8px;">🛡️ Garantia de 7 dias · Acesso imediato · Funciona com qualquer sistema</p>
+        <p style="font-size:12px;color:#F85149;font-weight:600;">Após as 30 vagas, o preço sobe para R$297 sem aviso.</p>
+      </div>
     </div>
 
     <p class="a4" style="margin-top:24px;font-size:12px;color:var(--muted2);text-align:center;line-height:1.7;">
