@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "src": "/google26590c1992d8b22a.html",
+      "dest": "/google26590c1992d8b22a.html"
+    },
+    {
+      "src": "/og-diagnostico.jpg",
+      "dest": "/og-diagnostico.jpg"
+    },
+    {
+      "src": "/supplyia-icon-512.png",
+      "dest": "/supplyia-icon-512.png"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
