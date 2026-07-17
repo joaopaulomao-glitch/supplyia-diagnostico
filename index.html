@@ -3,9 +3,73 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Diagnóstico de Maturidade em IA · SupplyIA</title>
+<title>Diagnóstico de Maturidade em IA para Supply Chain | SupplyIA</title>
+
+<!-- Favicon inline -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72'%3E%3Crect width='72' height='72' fill='%230D1117' rx='16'/%3E%3Cpath d='M18 24 C18 18 24 14 32 14 L44 14 C52 14 56 18 56 24 C56 30 52 34 44 34 L28 34 C20 34 16 38 16 44 C16 50 20 56 28 56 L44 56' stroke='%2330363D' stroke-width='6' stroke-linecap='round' fill='none'/%3E%3Cpath d='M18 24 C18 18 24 14 32 14 L44 14 C52 14 56 18 56 24 C56 30 52 34 44 34 L28 34 C20 34 16 38 16 44 C16 50 20 56 28 56 L44 56' stroke='%23F59E0B' stroke-width='6' stroke-linecap='round' fill='none' stroke-dasharray='120 200'/%3E%3Ccircle cx='18' cy='24' r='5' fill='%23F59E0B'/%3E%3Ccircle cx='44' cy='56' r='5' fill='%23F59E0B'/%3E%3Ccircle cx='44' cy='34' r='3.5' fill='%23FCD34D'/%3E%3C/svg%3E"/>
 <link rel="apple-touch-icon" href="/supplyia-icon-512.png"/>
+
+<!-- SEO -->
+<meta name="description" content="Descubra em 5 minutos o nível de maturidade em IA da sua operação de supply chain. Diagnóstico gratuito da SupplyIA com resultado personalizado e próximos passos."/>
+<meta name="keywords" content="diagnóstico IA supply chain, maturidade IA logística, quiz supply chain, inteligência artificial logística, SupplyIA diagnóstico, avaliação IA operação"/>
+<meta name="author" content="João Paulo Costa — SupplyIA"/>
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"/>
+<meta name="theme-color" content="#F59E0B"/>
+<link rel="canonical" href="https://diagnostico.supplyia.com.br/"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://diagnostico.supplyia.com.br/"/>
+<meta property="og:title" content="Diagnóstico de Maturidade em IA para Supply Chain | SupplyIA"/>
+<meta property="og:description" content="Descubra em 5 minutos onde sua operação está em relação à IA. Diagnóstico gratuito, resultado personalizado e próximos passos práticos."/>
+<meta property="og:image" content="https://diagnostico.supplyia.com.br/og-diagnostico.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:site_name" content="SupplyIA"/>
+<meta property="og:locale" content="pt_BR"/>
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Diagnóstico de Maturidade em IA para Supply Chain | SupplyIA"/>
+<meta name="twitter:description" content="Descubra em 5 minutos onde sua operação está em relação à IA. Gratuito."/>
+<meta name="twitter:image" content="https://diagnostico.supplyia.com.br/og-diagnostico.jpg"/>
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://supplyia.com.br/#organization",
+      "name": "SupplyIA",
+      "url": "https://supplyia.com.br",
+      "description": "Educação e tecnologia em IA para quem opera supply chain de verdade"
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://diagnostico.supplyia.com.br/#app",
+      "name": "Diagnóstico de Maturidade em IA — SupplyIA",
+      "description": "Quiz interativo gratuito que avalia o nível de maturidade em inteligência artificial de operações de supply chain e logística no Brasil, com resultado personalizado e plano de ação.",
+      "url": "https://diagnostico.supplyia.com.br/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "pt-BR",
+      "provider": {"@id": "https://supplyia.com.br/#organization"},
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock"
+      },
+      "about": ["Inteligência Artificial","Supply Chain","Logística","Maturidade Digital","Automação"]
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -250,23 +314,6 @@ body::before {
   font-weight: 500;
 }
 
-/* ── CADEIA STRIP ────────────────────────────────── */
-.cadeia-strip { display:flex; gap:6px; margin-bottom:30px; }
-.cadeia-cell {
-  flex:1; background:var(--dark2); border:1px solid var(--border);
-  border-radius:6px; padding:9px 2px; text-align:center;
-}
-.cadeia-cell .cl { font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:700; color:var(--amber); line-height:1; }
-.cadeia-cell .cw { font-size:8px; color:var(--muted2); margin-top:4px; letter-spacing:0.3px; }
-
-/* ── MAPA CADEIA (resultado) ─────────────────────── */
-.pillar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
-.pillar-letter { font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700; color:var(--amber); width:14px; text-align:center; flex-shrink:0; }
-.pillar-name { font-size:12px; color:var(--muted); width:88px; flex-shrink:0; }
-.pillar-track { flex:1; height:6px; background:var(--dark3); border-radius:3px; overflow:hidden; }
-.pillar-fill { height:100%; border-radius:3px; transition:width .8s ease; }
-.pillar-val { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted2); width:30px; text-align:right; flex-shrink:0; }
-
 /* ── CARDS RESULTADO ─────────────────────────────── */
 .card {
   background: var(--dark2);
@@ -304,13 +351,6 @@ body::before {
   letter-spacing: -0.01em;
 }
 .cta-btn:hover { background: var(--amber2); }
-
-/* ── ITENS DA OFERTA ─────────────────────────────── */
-.offer-item {
-  display:flex; align-items:flex-start; gap:8px;
-  font-size:13px; color:var(--muted); margin-bottom:8px; line-height:1.5;
-}
-.offer-item::before { content:'✓'; color:#3FB950; font-weight:700; flex-shrink:0; }
 
 /* ── META STRIP ──────────────────────────────────── */
 .meta {
@@ -353,56 +393,56 @@ body::before {
 <script>
 // ── PERGUNTAS ─────────────────────────────────────────────────────────
 const Q = [
-  { n:"01", area:"Rotina", p:"C", pn:"Capturar",
+  { n:"01", area:"Rotina",
     q:"De onde vêm os dados quando seu chefe pede um número agora?",
     hint:"Pense na última sexta às 16h com uma solicitação urgente.",
-    a:["Vou garimpar em e-mail, sistema e planilha separada. E rezo para bater.",
+    a:["Vou garimpar em e-mail, sistema e planilha separada — e rezo para bater.",
        "Tenho uma planilha mestre, mas ela chega com problema toda vez que preciso.",
        "Tenho um modelo pronto. Atualizo os dados e exporto.",
        "O relatório já está pronto quando o pedido chega."] },
-  { n:"02", area:"Tempo", p:"E", pn:"Executar",
+  { n:"02", area:"Tempo",
     q:"Quantas horas por semana você gasta fazendo coisas que um robô deveria fazer?",
     hint:"Conferir duplicata, formatar planilha, copiar dado de sistema pra e-mail…",
     a:["Mais de 8 horas. É a maior parte do meu dia.",
        "Entre 4 e 8 horas. Muito, mas já foi pior.",
        "Entre 1 e 4 horas. Automatizei algumas coisas.",
        "Menos de 1 hora. O repetitivo já tem solução."] },
-  { n:"03", area:"Dados", p:"C", pn:"Capturar",
+  { n:"03", area:"Dados",
     q:"Quando você abre uma planilha de entregas ou estoque, qual é a primeira dor de cabeça?",
     hint:"Aquela que aparece toda vez, sem exceção.",
     a:["Nome errado, data torta, campo em branco. Limpeza antes de qualquer análise.",
        "Os dados estão ok, mas tiro conclusões diferentes cada vez que processo.",
        "Dados confiáveis, mas demoro para transformar isso em análise.",
        "Dados limpos e análise rápida. O problema agora é o que fazer com o resultado."] },
-  { n:"04", area:"Frete", p:"A", pn:"Acompanhar",
+  { n:"04", area:"Frete",
     q:"Você confere se a transportadora cobrou o valor certo?",
     hint:"CT-e, tabela de frete, glosa, divergência de peso…",
     a:["Não confiro. Confio no boleto que chega e pago.",
-       "Confiro quando dá tempo, e às vezes acho divergência.",
+       "Confiro quando dá tempo — e às vezes acho divergência.",
        "Tenho planilha de conferência. Lento, mas funciona.",
        "Tenho processo automatizado que sinaliza divergência antes de eu pedir."] },
-  { n:"05", area:"IA hoje", p:"E", pn:"Executar",
+  { n:"05", area:"IA hoje",
     q:"Com que frequência você usa IA no trabalho de verdade?",
-    hint:"ChatGPT, Claude, Copilot: em tarefas da operação, não pessoais.",
+    hint:"ChatGPT, Claude, Copilot — em tarefas da operação, não pessoais.",
     a:["Não uso. Nunca tentei, ou tentei uma vez e não vi resultado.",
        "Uso às vezes, mas sem método. O resultado muda toda vez.",
        "Uso com frequência. Tenho alguns prompts que funcionam.",
        "Uso todo dia. Tenho processo estruturado e resultado que consigo medir."] },
-  { n:"06", area:"Prompt", p:"A", pn:"Alimentar",
+  { n:"06", area:"Prompt",
     q:"A IA te deu uma resposta ruim. O que você faz?",
     hint:"Esse é o termômetro real. Não existe resposta errada.",
     a:["Desisto ou aceito o resultado mesmo ruim.",
        "Tento de novo com palavras diferentes, mas no chute.",
        "Ajusto a instrução com base no que faltou. Normalmente melhora.",
        "Tenho estrutura de prompt que raramente falha. Sei exatamente o que ajustar."] },
-  { n:"07", area:"Análise", p:"D", pn:"Decidir",
+  { n:"07", area:"Análise",
     q:"A última análise que você levou para reunião foi baseada em quê?",
     hint:"OTIF, curva ABC, comparativo de fornecedor, ruptura de estoque…",
     a:["Em número que eu lembrava ou alguém me passou. Análise formal não houve.",
        "Em planilha que montei na pressa. Funcionou, mas sem muita confiança.",
        "Em dados tratados com critério claro. Defendi sem problema.",
        "Em análise acelerada por IA, com recomendação pronta para debater."] },
-  { n:"08", area:"Repetição", p:"I", pn:"Integrar",
+  { n:"08", area:"Repetição",
     q:"Tem alguma tarefa que você faz toda semana e já pensou 'devia ter uma forma mais rápida'?",
     hint:"Qualquer coisa que você faz no piloto automático mas ainda consome tempo.",
     a:["Sim, várias. Mas não sei por onde começar com IA.",
@@ -418,9 +458,9 @@ const Q = [
        "Sou referência. As pessoas me procuram quando o assunto é esse."] },
   { n:"10", area:"Próximo passo",
     q:"O que você realmente quer com IA nos próximos 90 dias?",
-    hint:"Escolha o que está mais próximo do que você quer de verdade, não do que parece mais bonito.",
+    hint:"Escolha o que está mais próximo do que você quer de verdade — não do que parece mais bonito.",
     a:["Entender o básico: como funciona, onde usar, o que não é enganação.",
-       "Resolver uma dor específica da minha rotina: uma planilha, um relatório.",
+       "Resolver uma dor específica da minha rotina — uma planilha, um relatório.",
        "Ter método: prompts que funcionam, biblioteca pronta, resultado consistente.",
        "Implantar IA no time ou na empresa. Quero liderar esse movimento."] }
 ];
@@ -431,26 +471,26 @@ const SUB = "30 Dias de IA Aplicada ao Supply Chain · Guia + Método CADEIA";
 const LEVELS = [
   { n:"N1", label:"Manual", range:[0,25], cor:"#F85149",
     titulo:"Enquanto você lê isso, alguém da sua área já está usando IA.",
-    descricao:"Ele tem a mesma planilha bagunçada que você. O mesmo gestor pedindo OTIF na sexta às 16h. A diferença: ele sai em 40 minutos. Você fica até as 19h. Esse não é um problema de ferramenta. É um problema de método, e cada semana que passa sem resolver é mais uma semana perdendo terreno.",
-    prox:"O Guia percorre o CADEIA na sua planilha real, não em exercício didático. Semana 1 (Capturar + Alimentar): relatório gerencial pronto com Claude Code. Semana 2 (Executar): biblioteca de prompts que roda toda semana sem reescrever. Semana 3 (Decidir): curva ABC e análise de fornecedor em 15 minutos, o tipo de análise que coloca você na reunião de diretoria. Semana 4 (Integrar + Acompanhar): roadmap dos próximos 90 dias da sua operação com IA, com critério de sucesso definido. Entregável concreto toda semana. Resultado que você mostra pro gestor na segunda-feira.",
+    descricao:"Ele tem a mesma planilha bagunçada que você. O mesmo gestor pedindo OTIF na sexta às 16h. A diferença: ele sai em 40 minutos. Você fica até as 19h. Esse não é um problema de ferramenta. É um problema de método — e cada semana que passa sem resolver é mais uma semana perdendo terreno.",
+    prox:"O Guia começa na sua planilha real, não em exercício didático. Semana 1: relatório gerencial pronto com Claude Code. Semana 2: biblioteca de prompts que roda toda semana sem reescrever. Semana 3: curva ABC e análise de fornecedor em 15 minutos — o tipo de análise que coloca você na reunião de diretoria. Semana 4: roadmap dos próximos 90 dias da sua operação com IA, com critério de sucesso definido. Entregável concreto toda semana. Resultado que você mostra pro gestor na segunda-feira.",
     cta:"Quero o Guia agora", sub:SUB, url:GUIA_URL },
 
   { n:"N2", label:"Estruturando", range:[26,50], cor:"#F59E0B",
     titulo:"Você já viu funcionar. O problema é que depende da sua memória.",
-    descricao:"Você testou, funcionou uma vez. Na semana seguinte, recomeçou do zero. Reformulou o prompt no chute, perdeu 30 minutos, aceitou um resultado mediano. Isso não é usar IA: é improvisar com IA. E improvisar não escala, não impressiona gestor e não coloca você à frente de ninguém.",
-    prox:"A Semana 2 do Guia (Executar, o E do CADEIA) resolve isso de vez: você monta sua biblioteca pessoal de prompts com o contexto da sua operação, cobrindo OTIF, auditoria de frete, pendências de fornecedor e curva ABC. Prompts que qualquer pessoa da equipe consegue rodar. Na Semana 3 (Decidir) você faz análise de decisão pronta para apresentar, do tipo que separa quem relata número de quem recomenda ação. É essa segunda pessoa que vai para a reunião de diretoria.",
+    descricao:"Você testou, funcionou uma vez. Na semana seguinte, recomeçou do zero. Reformulou o prompt no chute, perdeu 30 minutos, aceitou um resultado mediano. Isso não é usar IA — é improvisar com IA. E improvisar não escala, não impressiona gestor e não coloca você à frente de ninguém.",
+    prox:"A Semana 2 do Guia resolve isso de vez: você monta sua biblioteca pessoal de prompts com o contexto da sua operação — OTIF, auditoria de frete, pendências de fornecedor, curva ABC. Prompts que qualquer pessoa da equipe consegue rodar. Na Semana 3 você faz análise de decisão pronta para apresentar — do tipo que separa quem relata número de quem recomenda ação. É essa segunda pessoa que vai para a reunião de diretoria.",
     cta:"Quero o Guia agora", sub:SUB, url:GUIA_URL },
 
   { n:"N3", label:"Conectado", range:[51,75], cor:"#58A6FF",
     titulo:"Você usa IA. Seus colegas ainda não. Essa janela fecha.",
-    descricao:"Você está à frente agora. Mas vantagem sem processo documentado é vantagem temporária. Quando o colega ao lado aprender (e vai aprender), o que vai te separar não é saber usar. É ter construído o ativo que ele não tem: biblioteca organizada, roadmap estruturado, processo replicável. Quem chega primeiro com método vira referência. Quem chega depois vira seguidor.",
-    prox:"A Semana 2 do Guia (Executar) transforma o que você já faz de cabeça em biblioteca com critério: o que entra, o que fica de fora, como organizar para escalar. A Semana 4 (Integrar + Acompanhar) entrega o roadmap com horizontes de 30, 60 e 90 dias e a lógica de integração: quando o output da IA para de ser documento e vira input automático de outro processo. São os dois últimos elos do CADEIA, e é isso que separa usuário de referência.",
+    descricao:"Você está à frente agora. Mas vantagem sem processo documentado é vantagem temporária. Quando o colega ao lado aprender — e vai aprender — o que vai te separar não é saber usar. É ter construído o ativo que ele não tem: biblioteca organizada, roadmap estruturado, processo replicável. Quem chega primeiro com método vira referência. Quem chega depois vira seguidor.",
+    prox:"A Semana 2 do Guia transforma o que você já faz de cabeça em biblioteca com critério — o que entra, o que fica de fora, como organizar para escalar. A Semana 4 entrega o roadmap com horizontes de 30, 60 e 90 dias e a lógica de integração: quando o output da IA para de ser documento e vira input automático de outro processo. Isso é o que separa usuário de referência.",
     cta:"Quero o Guia agora", sub:SUB, url:GUIA_URL },
 
   { n:"N4", label:"Estratégico", range:[76,100], cor:"#3FB950",
     titulo:"Você sabe usar. Agora precisa do número que prova.",
-    descricao:"Você é quem os outros consultam. Mas quando seu gestor perguntar (e vai perguntar) quanto isso gerou de resultado, você vai ter a resposta na cabeça ou no papel? Percepção sem número é opinião. Número sem metodologia é chute. O inventário de impacto da Semana 4 (Acompanhar, o último elo do CADEIA) te dá o dado real: horas economizadas por semana, processos migrados, o que ainda está manual e por quê.",
-    prox:"Vem em parágrafo pronto para reunião: achado, implicação, ação. O formato que transforma dado em decisão e coloca você na conversa de diretoria, não só na sala de operações. Além disso, o roadmap de integração da Semana 4 mostra quando o output da IA para de ser arquivo e vira fluxo, o elo Integrar que quase ninguém na sua área alcançou.",
+    descricao:"Você é quem os outros consultam. Mas quando seu gestor perguntar — e vai perguntar — quanto isso gerou de resultado, você vai ter a resposta na cabeça ou no papel? Percepção sem número é opinião. Número sem metodologia é chute. O inventário de impacto da Semana 4 te dá o dado real: horas economizadas por semana, processos migrados, o que ainda está manual e por quê.",
+    prox:"Vem em parágrafo pronto para reunião — achado, implicação, ação. O formato que transforma dado em decisão e coloca você na conversa de diretoria, não só na sala de operações. Além disso, o roadmap de integração da Semana 4 mostra quando o output da IA para de ser arquivo e vira fluxo — o próximo nível que quase ninguém na sua área chegou.",
     cta:"Quero o Guia agora", sub:SUB, url:GUIA_URL }
 ];
 
@@ -463,24 +503,6 @@ function getScore() {
   return Math.round((v.reduce((a,b) => a+b, 0) / (v.length * 3)) * 100);
 }
 function getLevel(s) { return LEVELS.find(l => s >= l.range[0] && s <= l.range[1]) || LEVELS[0]; }
-
-// ── MAPA CADEIA ───────────────────────────────────────────────────────
-// Cada elo é medido pelas perguntas mapeadas a ele (índice em Q).
-const PILLARS = [
-  { l:"C", nome:"Capturar",   qs:[0,2], sem:"Semana 1" },
-  { l:"A", nome:"Alimentar",  qs:[5],   sem:"Semana 1" },
-  { l:"D", nome:"Decidir",    qs:[6],   sem:"Semana 3" },
-  { l:"E", nome:"Executar",   qs:[1,4], sem:"Semana 2" },
-  { l:"I", nome:"Integrar",   qs:[7],   sem:"Semana 4" },
-  { l:"A", nome:"Acompanhar", qs:[3],   sem:"Semana 4" }
-];
-function getPillarScores() {
-  return PILLARS.map(p => {
-    const vals = p.qs.map(i => state.answers[i]).filter(v => v !== undefined);
-    const score = vals.length ? Math.round((vals.reduce((a,b)=>a+b,0) / (vals.length*3)) * 100) : 0;
-    return { ...p, score };
-  });
-}
 
 // ── LOGO SVG OFICIAL ──────────────────────────────────────────────────
 function logoHTML() {
@@ -528,38 +550,26 @@ function rIntro() {
   const d = document.createElement('div');
   d.innerHTML = `
     ${logoHTML()}
-    <div class="badge a1"><span>Diagnóstico CADEIA · Gratuito</span></div>
+    <div class="badge a1"><span>Diagnóstico Gratuito</span></div>
     <h1 class="a2" style="font-size:clamp(26px,5vw,36px);font-weight:800;line-height:1.2;letter-spacing:-0.03em;margin-bottom:16px;">
       Você está ficando<br>
-      <span style="color:var(--amber)">para trás em IA</span><br>
+      <span style="color:var(--amber)">para trás em IA</span> —<br>
       ou só parece que está?
     </h1>
     <p class="a3" style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:10px;">
       10 perguntas sobre o seu dia a dia real em supply chain. Sem teoria, sem pergunta sobre "estratégia digital da empresa".
     </p>
-    <p class="a3" style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:20px;">
-      Cada pergunta mede um movimento do <strong style="color:var(--white)">método CADEIA</strong>, o mesmo que cruzou 7.098 lançamentos de frete em menos de uma hora e virou decisão de diretoria:
-    </p>
-    <div class="cadeia-strip a3">
-      <div class="cadeia-cell"><div class="cl">C</div><div class="cw">Capturar</div></div>
-      <div class="cadeia-cell"><div class="cl">A</div><div class="cw">Alimentar</div></div>
-      <div class="cadeia-cell"><div class="cl">D</div><div class="cw">Decidir</div></div>
-      <div class="cadeia-cell"><div class="cl">E</div><div class="cw">Executar</div></div>
-      <div class="cadeia-cell"><div class="cl">I</div><div class="cw">Integrar</div></div>
-      <div class="cadeia-cell"><div class="cl">A</div><div class="cw">Acompanhar</div></div>
-    </div>
     <p class="a3" style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:32px;">
-      No final: seu score, seu nível e o mapa dos seis elos. Você sai sabendo qual elo está te custando as tardes de sexta e o que fazer com ele já na próxima semana.
+      No final: seu nível de maturidade em IA e o próximo passo certo pro <em>seu</em> caso — não uma resposta genérica.
     </p>
     <div class="meta a4">
       <div class="meta-item">⏱ 3 minutos</div>
       <div class="meta-item">📋 10 perguntas</div>
-      <div class="meta-item">🔗 Mapa dos 6 elos</div>
+      <div class="meta-item">🎯 Resultado personalizado</div>
     </div>
     <button class="btn-primary a5" id="sb">Começar diagnóstico →</button>
-    <p style="margin-top:14px;font-size:12px;color:var(--muted2);text-align:center;line-height:1.7;">
-      Por <strong style="color:var(--muted);">João Paulo Costa</strong> · criador do método CADEIA<br>
-      20 anos de operação: de programador de PCP a gerente de operações na Zona Franca de Manaus
+    <p style="margin-top:14px;font-size:12px;color:var(--muted2);text-align:center;">
+      Criado por João · 20+ anos em WMS, TMS, PCP e Importação · Zona Franca de Manaus
     </p>`;
   d.querySelector('#sb').onclick = () => { state.step = 'lead'; render(); };
   return d;
@@ -576,7 +586,7 @@ function rLead() {
       Onde mando<br>seu resultado?
     </h2>
     <p class="a3" style="font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.65;">
-      Seu diagnóstico chega pelo WhatsApp com a análise do seu mapa CADEIA, não só um número solto.
+      Seu diagnóstico vai chegar pelo WhatsApp com análise personalizada — não só um número solto.
     </p>
     <div class="a3">
       <div class="field">
@@ -655,13 +665,8 @@ function rQuiz() {
 
     <button class="btn-back a0" id="bk">← Voltar</button>
 
-    <div style="display:flex;gap:6px;flex-wrap:wrap;">
-      <div class="area-tag a1">
-        <span>${q.n} · ${q.area}</span>
-      </div>
-      ${q.p ? `<div class="area-tag a1" style="border-color:rgba(245,158,11,0.30);background:rgba(245,158,11,0.06);">
-        <span style="color:var(--amber);">${q.p} · ${q.pn} <span style="color:var(--muted2);">· elo do CADEIA</span></span>
-      </div>` : ''}
+    <div class="area-tag a1">
+      <span>${q.n} · ${q.area}</span>
     </div>
 
     <h2 class="a2" style="font-size:clamp(18px,4vw,22px);font-weight:700;letter-spacing:-0.02em;line-height:1.35;margin-bottom:10px;">${q.q}</h2>
@@ -735,9 +740,6 @@ function rResult() {
   const s     = getScore();
   const lv    = getLevel(s);
   const first = state.nome.split(' ')[0];
-  const ps    = getPillarScores();
-  const weak  = [...ps].sort((a,b) => a.score - b.score)[0];
-  const corDe = v => v <= 33 ? '#F85149' : v <= 66 ? '#F59E0B' : '#3FB950';
   const d     = document.createElement('div');
 
   d.innerHTML = `
@@ -765,22 +767,6 @@ function rResult() {
       </div>
     </div>
 
-    <div class="card2 a2">
-      <p class="mono" style="font-size:10px;color:var(--amber);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">
-        Seu mapa CADEIA
-      </p>
-      ${ps.map(p => `
-      <div class="pillar-row">
-        <span class="pillar-letter">${p.l}</span>
-        <span class="pillar-name">${p.nome}</span>
-        <div class="pillar-track"><div class="pillar-fill" style="width:${p.score}%;background:${corDe(p.score)};"></div></div>
-        <span class="pillar-val">${p.score}</span>
-      </div>`).join('')}
-      <p style="font-size:13px;color:var(--muted);line-height:1.65;margin-top:16px;border-top:1px solid var(--border);padding-top:16px;">
-        Toda cadeia arrebenta no elo mais fraco. O seu hoje é <strong style="color:var(--white)">${weak.nome}</strong>, e no Guia de 30 dias ele é trabalhado já na <strong style="color:var(--amber)">${weak.sem}</strong>.
-      </p>
-    </div>
-
     <div class="card a2">
       <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:12px;line-height:1.35;">${lv.titulo}</h2>
       <p style="font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px;">${lv.descricao}</p>
@@ -792,29 +778,9 @@ function rResult() {
       </div>
     </div>
 
-    <div class="cta-card a3" style="border-color:var(--amber);padding:28px 24px;">
-      <p class="mono" style="font-size:10px;color:var(--amber);font-weight:600;letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:10px;">Acesso completo · Fundador</p>
-      <p style="font-size:19px;font-weight:800;letter-spacing:-0.02em;text-align:center;margin-bottom:8px;">30 Dias de IA Aplicada ao Supply Chain</p>
-      <p style="font-size:13px;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:20px;">Seu mapa mostrou onde a cadeia arrebenta: <strong style="color:var(--white)">${weak.nome}</strong>. O Guia ataca exatamente esse elo na <strong style="color:var(--amber)">${weak.sem}</strong>.</p>
-      <div style="margin-bottom:18px;">
-        <div class="offer-item">Guia completo: 4 semanas + método CADEIA</div>
-        <div class="offer-item">Bônus 1: Biblioteca de 45 prompts prontos</div>
-        <div class="offer-item">Bônus 2: Aplicação por área (Compras, Estoque, Transporte, Gestão)</div>
-        <div class="offer-item">Bônus 3: Planilha de Curva ABC pronta</div>
-        <div class="offer-item">Bônus 4: Matriz de comparativo de fornecedores</div>
-        <div class="offer-item">Acesso imediato + atualizações inclusas</div>
-      </div>
-      <div style="border-top:1px solid var(--border);padding-top:18px;text-align:center;">
-        <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;">
-          <span class="mono" style="font-size:16px;color:var(--muted2);text-decoration:line-through;">R$297</span>
-          <span class="mono" style="font-size:34px;font-weight:700;color:var(--amber);">R$ 197</span>
-        </div>
-        <div style="display:inline-block;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:4px 14px;font-size:11px;color:var(--amber);font-weight:700;margin-bottom:8px;">PREÇO DE FUNDADOR</div>
-        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">ou 3x de R$ 69,90 sem juros</p>
-        <a class="cta-btn" href="${lv.url}">Garantir minha vaga de fundador →</a>
-        <p style="font-size:12px;color:var(--muted2);margin-bottom:8px;">🛡️ Garantia de 7 dias · Acesso imediato · Funciona com qualquer sistema</p>
-        <p style="font-size:12px;color:#F85149;font-weight:600;">Após as 30 vagas, o preço sobe para R$297 sem aviso.</p>
-      </div>
+    <div class="cta-card a3">
+      <a class="cta-btn" href="${lv.url}">${lv.cta} →</a>
+      <p class="mono" style="font-size:11px;color:var(--muted2);text-align:center;letter-spacing:0.5px;">${lv.sub}</p>
     </div>
 
     <p class="a4" style="margin-top:24px;font-size:12px;color:var(--muted2);text-align:center;line-height:1.7;">
