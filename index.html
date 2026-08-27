@@ -467,6 +467,11 @@ const Q = [
 
 const GUIA_URL = "https://supplyia.com.br";
 const SUB = "30 Dias de IA Aplicada ao Supply Chain · Guia + Método CADEIA";
+// Pacote Raio-X Salarial (e-book em PDF + planilha de faixas) — enviado
+// automaticamente por e-mail/WhatsApp ao terminar o quiz. Servem também
+// como link de apoio no resultado.
+const EBOOK_URL = "https://b6eruargwxt3igln.public.blob.vercel-storage.com/Raio-X%20Salarial%20Supply%20Chain%202026%20-%20SupplyIA.pdf";
+const BASE_FAIXAS_URL = "https://b6eruargwxt3igln.public.blob.vercel-storage.com/Raio-X%20Salarial%20-%20Base%20de%20Faixas%20Publicas.xlsx";
 
 const LEVELS = [
   { n:"N1", label:"Manual", range:[0,25], cor:"#F85149",
@@ -495,7 +500,7 @@ const LEVELS = [
 ];
 
 // ── ESTADO ────────────────────────────────────────────────────────────
-let state = { step:"intro", current:0, answers:{}, selected:null, nome:"", wpp:"" };
+let state = { step:"intro", current:0, answers:{}, selected:null, nome:"", wpp:"", email:"" };
 
 function getScore() {
   const v = Object.values(state.answers);
@@ -559,9 +564,16 @@ function rIntro() {
     <p class="a3" style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:10px;">
       10 perguntas sobre o seu dia a dia real em supply chain. Sem teoria, sem pergunta sobre "estratégia digital da empresa".
     </p>
-    <p class="a3" style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:32px;">
+    <p class="a3" style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:20px;">
       No final: seu nível de maturidade em IA e o próximo passo certo pro <em>seu</em> caso — não uma resposta genérica.
     </p>
+    <div class="a3" style="display:flex;align-items:flex-start;gap:10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.20);border-radius:8px;padding:12px 14px;margin-bottom:32px;">
+      <span style="font-size:16px;line-height:1.4;">🎁</span>
+      <p style="font-size:13px;color:var(--white);line-height:1.55;">
+        Ao terminar, você recebe na hora, direto no seu WhatsApp (e por e-mail, se quiser), o pacote
+        <strong>Raio-X Salarial Supply Chain 2026</strong> — o e-book + a planilha com 85 faixas salariais e mais de 90 cargos, de graça.
+      </p>
+    </div>
     <div class="meta a4">
       <div class="meta-item">⏱ 3 minutos</div>
       <div class="meta-item">📋 10 perguntas</div>
@@ -586,7 +598,7 @@ function rLead() {
       Onde mando<br>seu resultado?
     </h2>
     <p class="a3" style="font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.65;">
-      Seu diagnóstico vai chegar pelo WhatsApp com análise personalizada — não só um número solto.
+      Seu diagnóstico e o pacote Raio-X Salarial (e-book + planilha) vão chegar pelo WhatsApp com análise personalizada — não só um número solto.
     </p>
     <div class="a3">
       <div class="field">
@@ -597,17 +609,24 @@ function rLead() {
         <label>WhatsApp (com DDD)</label>
         <input id="iW" type="tel" placeholder="(92) 99999-9999" value="${state.wpp}" autocomplete="tel" inputmode="numeric"/>
       </div>
+      <div class="field">
+        <label>E-mail (opcional — pra receber o pacote também por lá)</label>
+        <input id="iE" type="email" placeholder="seu@email.com" value="${state.email}" autocomplete="email" inputmode="email"/>
+      </div>
       <p id="er" style="color:#F85149;font-size:13px;margin-bottom:12px;display:none;"></p>
       <button class="btn-primary" id="su">Iniciar diagnóstico →</button>
     </div>
     <p style="margin-top:14px;font-size:12px;color:var(--muted2);text-align:center;">
-      Sem spam. Só seu diagnóstico e o próximo passo certo pra você.
+      Sem spam. Só seu diagnóstico, o pacote Raio-X Salarial e o próximo passo certo pra você.
     </p>`;
 
   d.querySelector('#bk').onclick = () => { state.step = 'intro'; render(); };
 
   // Nome
   d.querySelector('#iN').oninput = e => { state.nome = e.target.value; };
+
+  // E-mail (opcional)
+  d.querySelector('#iE').oninput = e => { state.email = e.target.value; };
 
   // WhatsApp com máscara
   const wppInput = d.querySelector('#iW');
@@ -623,8 +642,9 @@ function rLead() {
   };
 
   d.querySelector('#su').onclick = () => {
-    const nome = d.querySelector('#iN').value.trim();
-    const wpp  = d.querySelector('#iW').value.trim();
+    const nome  = d.querySelector('#iN').value.trim();
+    const wpp   = d.querySelector('#iW').value.trim();
+    const email = d.querySelector('#iE').value.trim();
     if (!nome || wpp.replace(/\D/g,'').length < 10) {
       const er = d.querySelector('#er');
       er.textContent = !nome
@@ -633,8 +653,15 @@ function rLead() {
       er.style.display = 'block';
       return;
     }
-    state.nome = nome;
-    state.wpp  = wpp;
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      const er = d.querySelector('#er');
+      er.textContent = 'E-mail inválido. Corrija ou deixe em branco.';
+      er.style.display = 'block';
+      return;
+    }
+    state.nome  = nome;
+    state.wpp   = wpp;
+    state.email = email;
     state.step = 'quiz';
     state.current = 0;
     state.answers = {};
@@ -724,7 +751,7 @@ function rQuiz() {
         fetch("https://script.google.com/macros/s/AKfycbwVOjxRruzP2KAF2ZIbGrCsecv8kZgMrBkRkrRIG1RM5bUv0vCA09I0-8-_QLG4Xm4m/exec", {
           method:"POST", mode:"no-cors",
           headers:{"Content-Type":"application/json"},
-          body: JSON.stringify({ nome:state.nome, wpp:state.wpp, score:getScore(), nivel:getLevel(getScore()).n, respostas:state.answers, ts:new Date().toISOString() })
+          body: JSON.stringify({ nome:state.nome, wpp:state.wpp, email:state.email, score:getScore(), nivel:getLevel(getScore()).n, respostas:state.answers, ts:new Date().toISOString() })
         });
       } catch(_) {}
       state.step = 'result';
@@ -764,6 +791,18 @@ function rResult() {
       </div>
       <div class="level-labels">
         ${LEVELS.map(l => `<span class="mono" style="font-size:10px;letter-spacing:1px;color:${l.n===lv.n?lv.cor:'var(--muted2)'};">${l.n}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="card2 a2" style="display:flex;align-items:flex-start;gap:12px;">
+      <span style="font-size:18px;line-height:1.4;">📩</span>
+      <div>
+        <p style="font-size:13px;color:var(--white);font-weight:600;line-height:1.5;margin-bottom:4px;">
+          Seu pacote Raio-X Salarial Supply Chain 2026 (e-book + planilha) já está a caminho do seu WhatsApp${state.email ? ' e do seu e-mail' : ''}.
+        </p>
+        <p style="font-size:12px;color:var(--muted2);line-height:1.5;">
+          Pode levar alguns minutos. Se preferir, baixe direto: <a href="${EBOOK_URL}" style="color:var(--amber);">e-book</a> · <a href="${BASE_FAIXAS_URL}" style="color:var(--amber);">planilha</a>.
+        </p>
       </div>
     </div>
 
